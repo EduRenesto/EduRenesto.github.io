@@ -1,5 +1,8 @@
 language: minimal
 
+before_install:
+    - sudo apt-get -y install libssl1.1
+
 before_script:
   # Download and unzip the zola executable
   # Replace the version numbers in the URL by the version you want to use
