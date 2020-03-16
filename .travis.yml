@@ -1,5 +1,7 @@
 language: minimal
 
+dist: bionic
+
 before_install:
     - sudo apt-get -y install libssl1.1
 
