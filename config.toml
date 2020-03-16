@@ -11,5 +11,22 @@ highlight_code = true
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = false
 
+# The theme
+theme = "after-dark"
+
+# The name of the site
+title = "Blog do Edu Renesto"
+description = "Homomorfismos da minha mente"
+
+# Code highlighting
+highlight_theme = "gruvbox-dark"
+
+taxonomies = [
+    {name = "categories", rss = true},
+    {name = "tags", rss = true}
+]
+
 [extra]
 # Put all your custom variables here
+
+even_title = "Edu Renesto"

@@ -1,0 +1,48 @@
+/*
+* I am terrible at webdev. People will see this and laugh.
+*/
+
+@import "nord.scss";
+
+@font-face {
+    font-family: Libertinus;
+    src: url("fonts/LibertinusSans-Regular.otf");
+}
+
+.bg {
+    background-color: $nord0;
+    color: $nord4;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+.content {
+    background-color: $nord1;
+    // just for testing
+    //width: 10vw;
+    //height: 10vh;
+
+    padding: 1em;
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.spacing {
+    margin-top: 1em;
+}
+
+* {
+    font-family: Libertinus;
+}
+
+a:link, a:visited, a:hover, a:active {
+    color: $nord8;
+    text-decoration: none;
+}
