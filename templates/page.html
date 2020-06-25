@@ -1,1 +1,12 @@
-{% extend "base.html" }
+{% extends "base.html" %}
+
+{% block title %}edu::blog::post{% endblock title %}
+
+{% block content %}
+<div class="content narrow container attention-0">
+    <strong>{{ page.title }}</strong>
+</div>
+<div class="content narrow">
+    {{ page.content | safe }}
+</div>
+{% endblock content %}

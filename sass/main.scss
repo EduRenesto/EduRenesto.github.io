@@ -9,6 +9,10 @@
     src: url("fonts/LibertinusSans-Regular.otf");
 }
 
+html {
+    font-family: Libertinus;
+}
+
 .bg {
     background-color: $nord0;
     color: $nord4;
@@ -65,8 +69,9 @@
     margin-left: 1em;
 }
 
-* {
-    font-family: Libertinus;
+a:link, a:visited, a:hover, a:active {
+    color: $nord8;
+    text-decoration: underline;
 }
 
 .title {
@@ -92,4 +97,12 @@
 .attention-1 a:link, .attention-1 a:visited, .attention-1 a:hover, .attention-1 a:active {
     color: $nord0;
     text-decoration: underline;
+}
+
+pre {
+    padding: 1em;
+}
+
+pre, code {
+    font-family: monospace;
 }
