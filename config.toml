@@ -12,7 +12,7 @@ highlight_code = true
 build_search_index = false
 
 # The theme
-theme = "after-dark"
+#theme = "after-dark"
 
 # The name of the site
 title = "Blog do Edu Renesto"

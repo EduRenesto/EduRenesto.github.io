@@ -1,304 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta http-equiv="content-type" content="text/html; charset=utf-8">
-
-      <!-- Enable responsiveness on mobile devices-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-
-      <title>Blog do Edu Renesto</title>
-
-      
-
-      
-          <link rel="stylesheet" href="https://edurenesto.github.io/site.css">
-      
-
-      
-      
+        <title>Zola</title>
     </head>
-
-    <body class="hack dark main container">
-        
-
-<article itemscope itemtype="http://schema.org/BlogPosting">
-    <header>
-        <h1 itemprop="headline">Uma Suave Introdução ao GDB</h1>
-        <span class="muted">
-    <svg style="margin-bottom:-3px" class="i-clock" viewBox="0 0 32 32"
-         width="16" height="16" fill="none" stroke="currentcolor"
-         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
-        <circle cx="16" cy="16" r="14"/>
-        <path d="M16 8 L16 16 20 20"/>
-    </svg>
-    <span>8 minute read</span>
-    <svg style="margin-bottom: -3px" class="i-edit" viewBox="0 0 32 32"
-         width="16" height="16" fill="none" stroke="currentcolor"
-         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
-        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
-    </svg>
-
-    Published: 2020-03-16
-</span>
-    </header>
-    <div itemprop="articleBody">
-      <p>Lá no final de 2018, eu tive meu primeiro contato formal com o curso do
-Bacharelado em Ciências da Computação na UFABC. Meu segundo quadrimestre na
-universidade, não sabia absolutamente nada da vida, e eu estava lá, cursando
-Programação Estruturada. Para quem não é da UFABC, é o curso que introduz
-programação na gloriosa Linguagem C.</p>
-<p>Como eu já sabia C há tempos, eu usei a disciplina pra polir meu conhecimento.
-Uma coisa que eu também já sabia era como usar o GDB, o famoso <em>GNU Debugger</em>,
-e de fato usei ele durante toda disciplina, me salvando em todos os
-<code>segmentation fault (core dumped)</code>'s da vida.</p>
-<p>Segui com meu caminho, e fiz Algoritmos e Estruturas de Dados I. Listas
-ligadas, ordenação, árvore, yadda yadda yadda. Dança de ponteiros, <code>segfault</code>
-aqui e ali, e eu com meu GDB.</p>
-<p>Mas, hoje, são meus amigos que estão fazendo PE e AEDI. Eles também estão
-passando pelos mesmos crashes que eu passei - mas eles nunca nem ouviram falar
-do tal do GDB. Minha missão, então, é ajudá-los! </p>
-<h1 id="masoq">Masoq?</h1>
-<p>Da <a href="https://pt.wikipedia.org/wiki/Depurador">página da Wikipedia</a>, um depurador
-(em inglês: debugger) é um programa de computador usado para testar outros
-programas e fazer sua depuração, que consiste em encontrar os defeitos do
-programa. </p>
-<p>Um debugger destrincha a execução de um programa. Você pode controlar e
-observar ela da maneira que você quiser. </p>
-<h1 id="como-usar">Como usar?</h1>
-<p>Para abrir um programa pelo GDB é bem simples. No seu terminal:</p>
-<pre style="background-color:#282828;">
-<span style="color:#fdf4c1;">$ gdb executavel
-</span></pre>
-<p>Ele vai te cuspir com um monte de texto. Dê uma olhada:</p>
-<pre style="background-color:#282828;">
-<span style="color:#fdf4c1;">GNU gdb (GDB</span><span style="color:#fdf4c1aa;">) </span><span style="color:#fdf4c1;">9.1
-Copyright (C</span><span style="color:#fdf4c1aa;">) </span><span style="color:#fdf4c1;">2020 Free Software Foundation, Inc.
-License GPLv3+: GNU GPL version 3 or later </span><span style="color:#fe8019;">&lt;</span><span style="color:#fdf4c1;">http://gnu.org/licenses/gpl.html</span><span style="color:#fe8019;">&gt;</span><span style="color:#fdf4c1;">
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
-Type </span><span style="color:#b8bb26;">&quot;show copying&quot;</span><span style="color:#fdf4c1;"> and </span><span style="color:#b8bb26;">&quot;show warranty&quot;</span><span style="color:#fdf4c1;"> for details.
-This GDB was configured as </span><span style="color:#b8bb26;">&quot;x86_64-pc-linux-gnu&quot;</span><span style="color:#fdf4c1;">.
-Type </span><span style="color:#b8bb26;">&quot;show configuration&quot;</span><span style="color:#fdf4c1;"> for configuration details.
-For bug reporting instructions, please see:
-</span><span style="color:#fe8019;">&lt;</span><span style="color:#fdf4c1aa;">http://www.gnu.org/software/gdb/bugs/</span><span style="color:#fe8019;">&gt;</span><span style="color:#fdf4c1aa;">.
-</span><span style="color:#fdf4c1;">Find the GDB manual and other documentation resources online at:
-    </span><span style="color:#fe8019;">&lt;</span><span style="color:#fdf4c1aa;">http://www.gnu.org/software/gdb/documentation/</span><span style="color:#fe8019;">&gt;</span><span style="color:#fdf4c1aa;">.
-
-</span><span style="color:#fdf4c1;">For help, type </span><span style="color:#b8bb26;">&quot;help&quot;</span><span style="color:#fdf4c1;">.
-Type </span><span style="color:#b8bb26;">&quot;apropos word&quot;</span><span style="color:#fdf4c1;"> to search for commands related to </span><span style="color:#b8bb26;">&quot;word&quot;</span><span style="color:#fdf4c1;">...
-Reading symbols from executavel...
-</span><span style="color:#fdf4c1aa;">(</span><span style="color:#fdf4c1;">No debugging symbols found in executavel</span><span style="color:#fdf4c1aa;">)
-(</span><span style="color:#fdf4c1;">gdb</span><span style="color:#fdf4c1aa;">)
-</span></pre>
-<p>Depois do texto, ele te dá um shellzinho, ali no <code>(gdb) </code>. Aqui que a magia
-acontece - você digita os comandos e o gdb executa. Vamos rodar o programa com
-o comando <code>run</code>:</p>
-<pre style="background-color:#282828;">
-<span style="color:#fdf4c1aa;">(gdb) run
-Starting program: /tmp/gdb-tut/executavel
-Ola mundo!
-[Inferior 1 (process 150753) exited normally]
-</span></pre>
-<p>Beleza! Nosso programa executou e retornou normalmente, sem problemas. Nesse
-caso, o GDB foi inútil. Estamos interessados em quando o programa explode.
-Vamos, então ilustrar. Saia do GDB com o comando <code>quit</code> e tome, por exemplo,
-esse código e salve ele como <code>segfault.c</code>:</p>
-<pre style="background-color:#282828;">
-<span style="color:#fa5c4b;">#include </span><span style="color:#b8bb26;">&lt;stdio.h&gt;
-
-</span><span style="color:#fa5c4b;">int </span><span style="color:#fe8019;">*</span><span style="color:#8ec07c;">retorna_invalido</span><span style="color:#fdf4c1aa;">() {
-    </span><span style="color:#fa5c4b;">int</span><span style="color:#fdf4c1aa;"> i </span><span style="color:#fe8019;">= </span><span style="color:#d3869b;">420</span><span style="color:#fdf4c1aa;">;
-
-    </span><span style="color:#fa5c4b;">return </span><span style="color:#fe8019;">&amp;</span><span style="color:#fdf4c1aa;">i;
-}
-
-</span><span style="color:#fa5c4b;">void </span><span style="color:#8ec07c;">explode</span><span style="color:#fdf4c1aa;">() {
-    </span><span style="color:#fa5c4b;">int </span><span style="color:#fe8019;">*</span><span style="color:#fdf4c1aa;">ptr </span><span style="color:#fe8019;">= </span><span style="color:#fdf4c1;">retorna_invalido()</span><span style="color:#fdf4c1aa;">;
-
-    </span><span style="color:#fabd2f;">printf</span><span style="color:#fdf4c1;">(</span><span style="color:#b8bb26;">&quot;</span><span style="color:#fdf4c1;">%d</span><span style="color:#b8bb26;">\n&quot;</span><span style="color:#fdf4c1;">, </span><span style="color:#fe8019;">*</span><span style="color:#fdf4c1;">ptr)</span><span style="color:#fdf4c1aa;">;
-}
-
-</span><span style="color:#fa5c4b;">int </span><span style="color:#8ec07c;">main</span><span style="color:#fdf4c1aa;">() {
-    </span><span style="color:#fa5c4b;">int</span><span style="color:#fdf4c1aa;"> foo </span><span style="color:#fe8019;">= </span><span style="color:#d3869b;">666</span><span style="color:#fdf4c1aa;">;
-
-    </span><span style="color:#fdf4c1;">explode()</span><span style="color:#fdf4c1aa;">;
-
-    </span><span style="color:#fa5c4b;">return </span><span style="color:#d3869b;">0</span><span style="color:#fdf4c1aa;">;
-}
-
-</span></pre>
-<p>Claramente, o programa vai explodir. Estamos criando uma variável dentro da
-função <code>retorna_invalido</code> e retornando um ponteiro para ela. Quando sairmos do
-escopo da função, <code>i</code> vai ser dealocada e <code>&amp;i</code> vai apontar para lixo. Vamos ver
-o crash:</p>
-<pre style="background-color:#282828;">
-<span style="color:#fdf4c1aa;">$ ./segfault
-[1]    152031 segmentation fault (core dumped)  ./segfault
-</span></pre>
-<p>Ótimo. GDB to the rescue! Vamos abrir o <code>segfault</code> com o GDB:</p>
-<pre style="background-color:#282828;">
-<span style="color:#fdf4c1aa;">$ gdb segfault
-GNU gdb (GDB) 9.1
-Copyright (C) 2020 Free Software Foundation, Inc.
-License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
-Type &quot;show copying&quot; and &quot;show warranty&quot; for details.
-This GDB was configured as &quot;x86_64-pc-linux-gnu&quot;.
-Type &quot;show configuration&quot; for configuration details.
-For bug reporting instructions, please see:
-&lt;http://www.gnu.org/software/gdb/bugs/&gt;.
-Find the GDB manual and other documentation resources online at:
-    &lt;http://www.gnu.org/software/gdb/documentation/&gt;.
-
-For help, type &quot;help&quot;.
-Type &quot;apropos word&quot; to search for commands related to &quot;word&quot;...
-Reading symbols from segfault...
-(No debugging symbols found in segfault)
-(gdb) 
-</span></pre>
-<p>E vamos usar nosso comando <code>run</code> mais uma vez:</p>
-<pre style="background-color:#282828;">
-<span style="color:#fdf4c1aa;">(gdb) run
-Starting program: /tmp/gdb-tut/segfault
-
-Program received signal SIGSEGV, Segmentation fault.
-0x000055555555519c in main ()
-</span></pre>
-<p>Ótimo! O GDB já detectou que o segfault aconteceu na função <code>main</code>. Vamos usar
-o comando <code>backtrace</code> para visualizar a pilha de chamadas até o momento da
-explosão.</p>
-<pre style="background-color:#282828;">
-<span style="color:#fdf4c1aa;">(gdb) backtrace
-#0  0x000055555555519c in main ()
-</span></pre>
-<p>Hmmm ok. A violação de acesso ocorreu na instrução que estava no endereço
-0x000055555555519c. Agora já sabemos onde procurar no nosso código! O quê? Você
-não sabe qual a linha de código correspondente ao endereço 0x000055555555519c?
-Como assim?!?! É mais que trivial!</p>
-<h1 id="compilando-com-informacoes-de-debug">Compilando com informações de debug</h1>
-<p>Realmente, é super trivial. Mas, com um passo que não fizemos: compilar com as
-informações de debug. Se você ler a mensagem que o GDB nos deu logo que abrimos
-ele, você vai notar um &quot;(No debugging symbols found in segfault)&quot;. Essas
-informações são cruciais para termos uma experiência de debug no mínimo humana.</p>
-<p>Quando compilamos um programa com informações de debug, o compilador anota no
-executável informações como o nome do arquivo correspondente àquela
-instrução, o número da linha, o nome das variáveis, o escopo e assim vai. O GDB
-usa essas informações para nos dar diagnósticos úteis.</p>
-<p>Para dizer ao compilador compilar com essas informações, precisamos apenas
-passar uma flag na hora da compilação. No caso do <code>gcc</code> e do <code>clang</code>, basta
-colocar a flag <code>-g</code> na linha de compilação. Por exemplo, se antes compilávamos
-o arquivo <code>segfault.c</code> com <code>$ gcc segfault.c -o segfault</code>, agora compilamos com
-<code>$ gcc segfault.c -g -o segfault</code>.</p>
-<p>Depois disso, abra novamente o gdb: </p>
-<pre style="background-color:#282828;">
-<span style="color:#fdf4c1aa;">$ gdb segfault
-GNU gdb (GDB) 9.1
-Copyright (C) 2020 Free Software Foundation, Inc.
-License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
-Type &quot;show copying&quot; and &quot;show warranty&quot; for details.
-This GDB was configured as &quot;x86_64-pc-linux-gnu&quot;.
-Type &quot;show configuration&quot; for configuration details.
-For bug reporting instructions, please see:
-&lt;http://www.gnu.org/software/gdb/bugs/&gt;.
-Find the GDB manual and other documentation resources online at:
-    &lt;http://www.gnu.org/software/gdb/documentation/&gt;.
-
-For help, type &quot;help&quot;.
-Type &quot;apropos word&quot; to search for commands related to &quot;word&quot;...
-Reading symbols from segfault...
-(gdb)
-</span></pre>
-<p>A mensagem que diz que não existem símbolos não aparece mais! Vamos tentar
-executar novamente:</p>
-<pre style="background-color:#282828;">
-<span style="color:#fdf4c1aa;">(gdb) run
-Starting program: /tmp/gdb-tut/segfault
-
-Program received signal SIGSEGV, Segmentation fault.
-0x000055555555519c in explode () at segfault.c:12
-12	    printf(&quot;%d\n&quot;, *ptr);
-</span></pre><h1 id="investigando-a-stack">Investigando a Stack</h1>
-<p>Que coisa linda. Agora, temos o nome do arquivo, o número da linha e até a
-função que causou a explosão. Nesse exemplo, já está bem claro o que aconteceu.
-Mas, suponha que você esteja trabalhando num programa que usa árvores AVL e
-o erro não foi esclarecido de primeira. Você pode procurar na pilha de chamadas
-para verificar o caminho que o seu programa fez até chegar no crash. Para isso,
-usamos o comando <code>backtrace</code> que vimos ali em cima:</p>
-<pre style="background-color:#282828;">
-<span style="color:#fdf4c1aa;">(gdb) backtrace
-#0  0x000055555555519c in explode () at segfault.c:12
-#1  0x00005555555551c2 in main () at segfault.c:18
-</span></pre>
-<p>Ele mostrou que nossa pilha de chamadas tinha dois <code>frames</code>: um na função
-<code>main</code>, que chamou a função <code>explode</code> que por sua vez criou outro.</p>
-<p>Podemos investigar exatamente o que estava occorendo em cada frame no momento
-do crash. Para isso, usamos o comando <code>frame N</code>, onde <code>N</code> é o número do frame
-que o <code>backtrace</code> reportou. Por exemplo, vamos inspecionar o frame <code>1</code>:</p>
-<pre style="background-color:#282828;">
-<span style="color:#fdf4c1aa;">(gdb) frame 1
-#1  0x00005555555551c2 in main () at segfault.c:18
-18	    explode();
-</span></pre>
-<p>Isso não é nada que não sabemos. O poder, aqui, é poder inspecionar variáveis
-específicas. Note que dentro da <code>main</code>, criamos um <code>int foo</code>. Suponha que ele
-seja importante para nós, e queremos ver qual o valor ele recebeu no momento do
-crash. Para isso, usamos o comando <code>p var</code>, onde <code>var</code> é o nome da variável:</p>
-<pre style="background-color:#282828;">
-<span style="color:#fdf4c1aa;">(gdb) p foo
-$1 = 666
-</span></pre>
-<p>Que é exatamente o valor que colocamos no nosso código fonte.</p>
-<h1 id="conclusao">Conclusão</h1>
-<p>Isso é o mínimo que uma pessoa precisa saber para se salvar utilizando o GDB.
-Sabendo isso, já é possível diagnosticar e arrumar vários <code>segfaults</code>, o que
-vai poupar (e muito) seu tempo. No entanto, isso não é o suficiente para te
-ajudar em problemas de lógica, quando o programa não crasha, mas não faz o que
-você esperava que fizesse.</p>
-<p>De fato, o conteúdo aqui não é nem 1% do que o GDB pode fazer. Numa parte 2
-desse tutorial, vou ensinar a utilizar a função de execução linha-a-linha, onde
-o seu código é executado passo a passo, e é possível inspecionar variáveis a
-qualquer momento da execução.</p>
-<p>Por enquanto, isso é tudo! Espero ter ajudado! :)</p>
-
-    </div>
-
-    
-        <footer>
-            <hr>
+    <body>
+        <div class="container">
+            <h1>Welcome to Zola!</h1>
             <p>
-                
-                
-                    
-                    in <a href="https://edurenesto.github.io/categories/blog/">Blog</a>
-                
-                
-                    and tagged
-                    
-                        <a href="https://edurenesto.github.io/tags/programming/">programming</a>
-                        
-                            
-                                
-                                    and
-                                
-                            
-                        
-                    
-                        <a href="https://edurenesto.github.io/tags/tutorial/">tutorial</a>
-                        
-                            
-                        
-                    
-                
+                You're seeing this page because we couldn't find a template to render.
             </p>
+            <p>
+                To modify this page, create a <b>page.html</b> file in the templates directory or
+                <a href="https://www.getzola.org/documentation/themes/installing-and-using-themes/" target="_blank">install a theme</a>.
+                <br>
+                You can find what variables are available in this template in the <a href="https:&#x2F;&#x2F;www.getzola.org&#x2F;documentation&#x2F;templates&#x2F;pages-sections&#x2F;#page-variables" target="_blank">documentation</a>.
+            </p>
+        </div>
+        <footer>
+            <a href="https://www.getzola.org/documentation/getting-started/cli-usage/" target="_blank">Get started with Zola</a>
         </footer>
-    
-</article>
-
-
-    </body>
-
+        <style>
+            html {
+                line-height: 1.5;
+            }
+            h1 {
+                margin-bottom: 2rem;
+            }
+            .container {
+                font-family: "sans-serif";
+                text-align: center;
+                margin-top: 20vh;
+                padding: 2rem;
+                background: #e9e9e9;
+            }
+            footer {
+                position: fixed;
+                width: 100%;
+                bottom: 1rem;
+                text-align: center;
+            }
+        </style>
+    <script src="/livereload.js?port=1024&amp;mindelay=10"></script></body>
 </html>
