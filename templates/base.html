@@ -4,49 +4,25 @@
         <title>{{ config.title }}</title>
         <style>
             @import url("/main.css") screen, projection;
+            {% block extra_style %}{% endblock extra_style %}
         </style>
     </head>
 
     <body class="bg">
-        <div class="content narrow center">
+        <div class="content narrow center title">
             <h2>{% block title %}{% endblock title %}</h2>
         </div>
 
-        <div class="content narrow center">
-            <a href="/about">about</a>
+        <div class="content narrow center attention-0">
+            <a href="/">home</a>
             <a href="/projects">projects</a>
             <a href="/research">research</a>
             <a href="/ramblings">ramblings</a>
             <a href="/blog">blog</a>
         </div>
 
-        <div class="content narrow container">
-            <img src="/img/pf.jpeg" class="pfp"/>
+        {% block content %}{% endblock content %}
 
-            <p class="intro-text">
-                <em>Hello there!</em> I am <strong>Eduardo Renesto</strong>, a
-                computer science and mathematics undergrad student at the Federal University
-                of ABC (UFABC). 
-
-                <br/>
-                <br/>
-
-                My main interests are computer graphics, operating systems and programming
-                languages. My main languages are Rust, C and Haskell.
-
-                <br/>
-                <br/>
-
-                I have done research in procedural geometry generation and data acquisition
-                systems, with an emphasis in concurrency. I look forward to researching light
-                transport algorithms.
-
-                <br/>
-                <br/>
-
-                As a software engineer, I mostly do backend and systems programming.
-            </p>
-        </div>
         <div class="content narrow center">
             made by Edu with love, Zola and Rust 🦀
         </div>

@@ -1,54 +1,34 @@
-<html>
-    <head>
-        <meta charset="UTF-8"/>
-        <title>{{ config.title }}</title>
-        <style>
-            @import url("/main.css") screen, projection;
-        </style>
-    </head>
+{% extends "base.html" %}
 
-    <body class="bg">
-        <div class="content narrow center">
-            <h1>Edu Renesto :)</h1>
-        </div>
+{% block title %}edu::home{% endblock title %}
 
-        <div class="content narrow center">
-            <a href="/about">about</a>
-            <a href="/projects">projects</a>
-            <a href="/research">research</a>
-            <a href="/ramblings">ramblings</a>
-            <a href="/blog">blog</a>
-        </div>
 
-        <div class="content narrow container">
-            <img src="/img/pf.jpeg" class="pfp"/>
+{% block content %}
+    <div class="content narrow container">
+    <img src="/img/pf.jpeg" class="pfp"/>
 
-            <p class="intro-text">
-                <em>Hello there!</em> I am <strong>Eduardo Renesto</strong>, a
-                computer science and mathematics undergrad student at the Federal University
-                of ABC (UFABC). 
+        <p class="intro-text">
+            <em>Hello there!</em> I am <strong>Eduardo Renesto</strong>, a
+            computer science and mathematics undergrad student at the Federal University
+            of ABC (UFABC). 
 
-                <br/>
-                <br/>
+            <br/>
+            <br/>
 
-                My main interests are computer graphics, operating systems and programming
-                languages. My main languages are Rust, C and Haskell.
+            My main interests are computer graphics, operating systems and programming
+            languages. My main languages are Rust, C and Haskell.
 
-                <br/>
-                <br/>
+            <br/>
+            <br/>
 
-                I have done research in procedural geometry generation and data acquisition
-                systems, with an emphasis in concurrency. I look forward to researching light
-                transport algorithms.
+            I have done research in procedural geometry generation and data acquisition
+            systems, with an emphasis in concurrency. I look forward to researching light
+            transport algorithms.
 
-                <br/>
-                <br/>
+            <br/>
+            <br/>
 
-                As a software engineer, I mostly do backend and systems programming.
-            </p>
-        </div>
-        <div class="content narrow center">
-            made by Edu with love, Zola and Rust 🦀
-        </div>
-    </body>
-</html>
+            As a software engineer, I mostly do backend and systems programming.
+        </p>
+    </div>
+{% endblock content %}
