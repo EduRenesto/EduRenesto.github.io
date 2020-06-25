@@ -11,6 +11,7 @@
 
 html {
     font-family: Libertinus;
+    font-size: 18px;
 }
 
 .bg {
@@ -105,4 +106,24 @@ pre {
 
 pre, code {
     font-family: monospace;
+}
+
+@media only screen and (max-device-width: 767px) {
+    html* {
+        font-size: 20px;
+    }
+
+    .narrow {
+        width: 90%;
+    }
+    .container {
+        flex-flow: column nowrap;
+    }
+    .pfp {
+        width: 40em;
+        height: 40em;
+        max-width: 40em;
+        max-height: 40em;
+        border-radius: 20em;
+    }
 }
