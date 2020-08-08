@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block extra_style %}@import url("/projects.css") screen, projection;{% endblock extra_style %}
+
+{% block title %}edu::projects{% endblock title %}
+
+{% block content %}
+    <div class="content narrow flex-hor">
+        {% for post in paginator.pages | reverse %}
+        <div class="proj-card">
+            <img src="{{ post.extra.image }}"/>
+            <div class="proj-desc">
+                <a href="{{ post.extra.link }}">{{ post.title }}</a> <br/>
+                {{ post.description }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock content %}
