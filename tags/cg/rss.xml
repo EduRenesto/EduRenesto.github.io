@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Blog do Edu Renesto</title>
+        <link>https://edurenesto.github.io</link>
+        <description>Homomorfismos da minha mente</description>
+        <generator>Zola</generator>
+        <language>en</language>
+        <atom:link href="https://edurenesto.github.io/tags/cg/rss.xml" rel="self" type="application/rss+xml"/>
+        <lastBuildDate>Fri, 24 Jul 2020 00:00:00 +0000</lastBuildDate>
+        
+            <item>
+                <title>OpenGL para as Massas, pt 0 -- Introdução</title>
+                <pubDate>Fri, 24 Jul 2020 00:00:00 +0000</pubDate>
+                <link>https://edurenesto.github.io/blog/20200724-opengl-00-intro/</link>
+                <guid>https://edurenesto.github.io/blog/20200724-opengl-00-intro/</guid>
+                <description>&lt;p&gt;&lt;strong&gt;Nota&lt;&#x2F;strong&gt;: esse artigo está sob constante atualização!&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;introducao&quot;&gt;Introdução&lt;&#x2F;h1&gt;
+&lt;p&gt;Um dos meus maiores interesses é computação gráfica. Na minha opinião, é uma
+área muito subestimada. A maioria das pessoas com quem eu interajo no meu
+dia-a-dia não têm interesse suficiente pra tirar um tempo e estudar, ou
+simplesmente nem conhecem o que a área tem a oferecer. &lt;&#x2F;p&gt;
+&lt;p&gt;Talvez essa percepção minha seja resultado de um caráter específico do meu
+espaço amostral. Na UFABC, a disciplina &lt;em&gt;Computação Gráfica&lt;&#x2F;em&gt; é alocada perto
+do final do curso seguindo os quadrimestres ideais do Bacharelado em Ciência
+da Computação. E realmente, a galera tende a deixar essa disciplina
+maravilhosa só pro final.&lt;&#x2F;p&gt;
+&lt;p&gt;Aqueles que se aventuram e a cursam antes acabam se sentindo desapontados,
+porque terminam a disciplina sem entender nada. Já vi muitas pessoas
+reclamando que o curso é só um &lt;em&gt;copy-paste&lt;&#x2F;em&gt; de slides, e muitos passam
+dificuldades ao fazer o projeto final.&lt;&#x2F;p&gt;
+&lt;p&gt;Além disso, essa disciplina será ofertada no próximo quadrimestre (que será
+feito apenas online por causa do &lt;em&gt;micróbio desgraçado&lt;&#x2F;em&gt;), o que resultará numa
+outra onda de alunos perdidos. E não ter o professor presencialmente pode
+piorar a situação.&lt;&#x2F;p&gt;
+&lt;p&gt;Visto tudo isso, tentando aumentar a moral da área (pelo menos pelos círculos
+da UFABC), e defendendo os professores que lecionam essa disciplina (que são
+professores muito bons), resolvi aproveitar que gastei minha adolescência
+desenhando cubinhos com C++ e OpenGL--ao invés de aprender a paquerar--e
+escrever um material que talvez possa ajudar alguém.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;mas-o-que-e-opengl&quot;&gt;Mas o que é OpenGL?&lt;&#x2F;h2&gt;
+&lt;p&gt;Segundo a &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;OpenGL&quot;&gt;Wikipedia&lt;&#x2F;a&gt;:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;OpenGL (Open Graphics Library) is a cross-language, cross-platform&lt;&#x2F;em&gt;
+&lt;em&gt;application programming interface (API) for rendering 2D and 3D vector&lt;&#x2F;em&gt;
+&lt;em&gt;graphics. The API is typically used to interact with a graphics processing&lt;&#x2F;em&gt;
+&lt;em&gt;unit (GPU), to achieve hardware-accelerated rendering.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Ou seja, OpenGL é uma API usada para renderização eficiente de gráficos
+vetoriais em 2D e 3D. Geralmente, é usada para interagir com placas de vídeo
+(GPUs) para acelerar o processo de renderização.&lt;&#x2F;p&gt;
+&lt;p&gt;Quando você joga Minecraft, por exemplo, o OpenGL está sendo utilizado por
+baixo dos panos para enviar os dados dos polígonos a serem desenhados para a
+GPU, além de coordenar o processo todo de renderização.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;ta-o-que-e-renderizacao&quot;&gt;Tá. O que é &lt;em&gt;Renderização&lt;&#x2F;em&gt;?&lt;&#x2F;h2&gt;
+&lt;p&gt;Essencialmente, renderização é o &lt;em&gt;processo de transformar uma descrição de uma
+cena bi ou tridimensional em uma imagem que seria correspondente a uma foto
+daquela cena&lt;&#x2F;em&gt;. O grau de realismo é importante e motiva diversas técnicas
+diferentes, dependendo do que é almejado.&lt;&#x2F;p&gt;
+&lt;p&gt;Um exemplo é a renderização fotorrealística &lt;em&gt;(que é a minha área)&lt;&#x2F;em&gt;. Aqui que
+entram os famosos &lt;em&gt;raytracers&lt;&#x2F;em&gt;, usados por grandes estúdios em filmes e
+animações (e ultimamente em jogos também. Viva RTX). Os algoritmos facilmente
+viram extremamente complicados, envolvendo cálculo numérico e teoria de
+probabilidade. &lt;&#x2F;p&gt;
+&lt;p&gt;Em OpenGL, podemos escolher quais técnicas utilizar, então nós mesmos vamos
+escolher o grau de realismo (isso fará mais sentido ao longo da série). Vamos
+focar em renderização em tempo real, que é o principal foco do OpenGL (e da
+maioria das outras APIs gráficas, como Vulkan e DirectX).&lt;&#x2F;p&gt;
+&lt;p&gt;Como renderização fotorrealística é complicada e leva tempo para ser
+executada, vamos fazer uma &lt;em&gt;aproximação&lt;&#x2F;em&gt;. Ao invés de ray tracing, usamos a
+técnica de &lt;em&gt;Rasterização&lt;&#x2F;em&gt;, que consiste em testar pixel por pixel, linha a
+linha, e verificar se existe algum polígono que interceptaria tal pixel. Esse
+processo é feito de maneira muito otimizada pela placa de vídeo, e nós apenas
+nos preocuparemos em, basicamente, informar os dados necessarios para tal.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;legal-mas-por-que-opengl&quot;&gt;Legal. Mas, por que OpenGL?&lt;&#x2F;h2&gt;
+&lt;p&gt;OpenGL é livre e multiplataforma, além de ser &lt;em&gt;fácil&lt;&#x2F;em&gt;. OpenGL, assim como
+DirectX até a versão 11, é uma API de &lt;em&gt;alto nível&lt;&#x2F;em&gt;, então por baixo dos panos
+o driver de vídeo está fazendo bastante trabalho por nós. Vulkan e DirectX 12
+são de baixo nível -- são necessários muitos mais passos para fazer a mesma
+coisa. Isso gera uma melhor oportunidade de otimização, sendo essa uma das
+razões que as grandes engines de games de hoje em dia usam essas APIs.&lt;&#x2F;p&gt;
+&lt;p&gt;Aqui, usaremos OpenGL &lt;em&gt;moderno&lt;&#x2F;em&gt;, que é como são conhecidas as versões da API a
+partir da 3. Ele roda nativamente no desktop, mas existem versões alternativas
+para diversos ambientes:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;OpenGL ES: voltado para sistemas embarcados, como smartphones e tablets;&lt;&#x2F;li&gt;
+&lt;li&gt;WebGL: voltado para ser executado em browsers.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Existem diferenças entre essas versões, mas são pequenas o suficiente para
+você se sentir confortável e aprender uma outra versão rapidamente, dado que
+já conhece bem uma.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;gostei-como-sera-a-serie&quot;&gt;Gostei. Como será a série?&lt;&#x2F;h2&gt;
+&lt;p&gt;Assumirei que quem lê esta série é proficiente em alguma linguagem de
+programação imperativa. Embora eu use Rust para meus projetos de computação
+gráfica hoje em dia, todos os exemplos aqui serão escritos em C. Afinal,
+provavelmente boa parte das pessoas que lerão nem conhecem Rust (se você não
+conhece, &lt;a href=&quot;https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;book&#x2F;&quot;&gt;LEIA O LIVRO&lt;&#x2F;a&gt;) :(&lt;&#x2F;p&gt;
+&lt;p&gt;Eu tentarei escrever um artigo por semana. Por enquanto, a ementa é a
+seguinte:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;edurenesto.github.io&#x2F;blog&#x2F;20200724-opengl-00-intro&#x2F;&quot;&gt;Parte 0: Introdução&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Parte 1: Setup e Criando uma Janela (e brincando com ela)&lt;&#x2F;li&gt;
+&lt;li&gt;Parte 2: A Pipeline e Buffers&lt;&#x2F;li&gt;
+&lt;li&gt;Parte 3: Shaders e seu Primeiro Triângulo&lt;&#x2F;li&gt;
+&lt;li&gt;Parte 4: Matrizes e Transformações, e seu Primeiro Cubo&lt;&#x2F;li&gt;
+&lt;li&gt;Parte 5: Texturas&lt;&#x2F;li&gt;
+&lt;li&gt;Parte 6: Framebuffers e Offscreen Rendering&lt;&#x2F;li&gt;
+&lt;li&gt;Parte 7: Algumas técnicas legais&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Todo esse conteúdo está sujeito a alterações, enquanto eu planejo melhor o
+minicurso. Espero que gostem!&lt;&#x2F;p&gt;
+&lt;p&gt;Até a próxima parte!&lt;&#x2F;p&gt;
+</description>
+            </item>
+        
+    </channel>
+</rss>

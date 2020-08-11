@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Blog do Edu Renesto</title>
+        <link>https://edurenesto.github.io</link>
+        <description>Homomorfismos da minha mente</description>
+        <generator>Zola</generator>
+        <language>en</language>
+        <atom:link href="https://edurenesto.github.io/tags/path-tracing/rss.xml" rel="self" type="application/rss+xml"/>
+        <lastBuildDate>Sat, 28 Mar 2020 00:00:00 +0000</lastBuildDate>
+        
+            <item>
+                <title>A Review on Monte Carlo Algorithms for Light Transport in Computer Graphics [Portuguese]</title>
+                <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
+                <link>https://edurenesto.github.io/research/20200328-monte-carlo/</link>
+                <guid>https://edurenesto.github.io/research/20200328-monte-carlo/</guid>
+                <description>&lt;p&gt;We present a historical review and an introduction about the light transport
+problem in computer graphics. We analyze five Monte Carlo methods for solving
+the Rendering Equation, them being Naive Path Tracing, Multiple Importance
+Sampling, Bidirectional Path Tracing, Metropolis Light Transport and Gradient
+Domain Path Tracing. We summarize the main ideas and optimal cases for each
+method.&lt;&#x2F;p&gt;
+</description>
+            </item>
+        
+    </channel>
+</rss>
