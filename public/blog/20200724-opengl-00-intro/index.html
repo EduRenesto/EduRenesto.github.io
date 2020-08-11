@@ -1,0 +1,133 @@
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Blog do Edu Renesto</title>
+        <style>
+            @import url("/main.css") screen, projection;
+            @import url("/blog.css") screen, projection;
+        </style>
+    </head>
+
+    <body class="bg">
+        <div class="content narrow center title">
+            <h2>edu::blog::post</h2>
+        </div>
+
+        <div class="content narrow center attention-0">
+            <a href="/">home</a>
+            <a href="/projects">projects</a>
+            <a href="/research">research</a>
+            <a href="/ramblings">ramblings</a>
+            <a href="/blog">blog</a>
+        </div>
+
+        
+<div class="content narrow container attention-0">
+    <strong>OpenGL para as Massas, pt 0 -- Introdução</strong>
+</div>
+<div class="content narrow">
+    <p><strong>Nota</strong>: esse artigo está sob constante atualização!</p>
+<h1 id="introducao">Introdução</h1>
+<p>Um dos meus maiores interesses é computação gráfica. Na minha opinião, é uma
+área muito subestimada. A maioria das pessoas com quem eu interajo no meu
+dia-a-dia não têm interesse suficiente pra tirar um tempo e estudar, ou
+simplesmente nem conhecem o que a área tem a oferecer. </p>
+<p>Talvez essa percepção minha seja resultado de um caráter específico do meu
+espaço amostral. Na UFABC, a disciplina <em>Computação Gráfica</em> é alocada perto
+do final do curso seguindo os quadrimestres ideais do Bacharelado em Ciência
+da Computação. E realmente, a galera tende a deixar essa disciplina
+maravilhosa só pro final.</p>
+<p>Aqueles que se aventuram e a cursam antes acabam se sentindo desapontados,
+porque terminam a disciplina sem entender nada. Já vi muitas pessoas
+reclamando que o curso é só um <em>copy-paste</em> de slides, e muitos passam
+dificuldades ao fazer o projeto final.</p>
+<p>Além disso, essa disciplina será ofertada no próximo quadrimestre (que será
+feito apenas online por causa do <em>micróbio desgraçado</em>), o que resultará numa
+outra onda de alunos perdidos. E não ter o professor presencialmente pode
+piorar a situação.</p>
+<p>Visto tudo isso, tentando aumentar a moral da área (pelo menos pelos círculos
+da UFABC), e defendendo os professores que lecionam essa disciplina (que são
+professores muito bons), resolvi aproveitar que gastei minha adolescência
+desenhando cubinhos com C++ e OpenGL--ao invés de aprender a paquerar--e
+escrever um material que talvez possa ajudar alguém.</p>
+<h2 id="mas-o-que-e-opengl">Mas o que é OpenGL?</h2>
+<p>Segundo a <a href="https://en.wikipedia.org/wiki/OpenGL">Wikipedia</a>:</p>
+<blockquote>
+<p><em>OpenGL (Open Graphics Library) is a cross-language, cross-platform</em>
+<em>application programming interface (API) for rendering 2D and 3D vector</em>
+<em>graphics. The API is typically used to interact with a graphics processing</em>
+<em>unit (GPU), to achieve hardware-accelerated rendering.</em></p>
+</blockquote>
+<p>Ou seja, OpenGL é uma API usada para renderização eficiente de gráficos
+vetoriais em 2D e 3D. Geralmente, é usada para interagir com placas de vídeo
+(GPUs) para acelerar o processo de renderização.</p>
+<p>Quando você joga Minecraft, por exemplo, o OpenGL está sendo utilizado por
+baixo dos panos para enviar os dados dos polígonos a serem desenhados para a
+GPU, além de coordenar o processo todo de renderização.</p>
+<h2 id="ta-o-que-e-renderizacao">Tá. O que é <em>Renderização</em>?</h2>
+<p>Essencialmente, renderização é o <em>processo de transformar uma descrição de uma
+cena bi ou tridimensional em uma imagem que seria correspondente a uma foto
+daquela cena</em>. O grau de realismo é importante e motiva diversas técnicas
+diferentes, dependendo do que é almejado.</p>
+<p>Um exemplo é a renderização fotorrealística <em>(que é a minha área)</em>. Aqui que
+entram os famosos <em>raytracers</em>, usados por grandes estúdios em filmes e
+animações (e ultimamente em jogos também. Viva RTX). Os algoritmos facilmente
+viram extremamente complicados, envolvendo cálculo numérico e teoria de
+probabilidade. </p>
+<p>Em OpenGL, podemos escolher quais técnicas utilizar, então nós mesmos vamos
+escolher o grau de realismo (isso fará mais sentido ao longo da série). Vamos
+focar em renderização em tempo real, que é o principal foco do OpenGL (e da
+maioria das outras APIs gráficas, como Vulkan e DirectX).</p>
+<p>Como renderização fotorrealística é complicada e leva tempo para ser
+executada, vamos fazer uma <em>aproximação</em>. Ao invés de ray tracing, usamos a
+técnica de <em>Rasterização</em>, que consiste em testar pixel por pixel, linha a
+linha, e verificar se existe algum polígono que interceptaria tal pixel. Esse
+processo é feito de maneira muito otimizada pela placa de vídeo, e nós apenas
+nos preocuparemos em, basicamente, informar os dados necessarios para tal.</p>
+<h2 id="legal-mas-por-que-opengl">Legal. Mas, por que OpenGL?</h2>
+<p>OpenGL é livre e multiplataforma, além de ser <em>fácil</em>. OpenGL, assim como
+DirectX até a versão 11, é uma API de <em>alto nível</em>, então por baixo dos panos
+o driver de vídeo está fazendo bastante trabalho por nós. Vulkan e DirectX 12
+são de baixo nível -- são necessários muitos mais passos para fazer a mesma
+coisa. Isso gera uma melhor oportunidade de otimização, sendo essa uma das
+razões que as grandes engines de games de hoje em dia usam essas APIs.</p>
+<p>Aqui, usaremos OpenGL <em>moderno</em>, que é como são conhecidas as versões da API a
+partir da 3. Ele roda nativamente no desktop, mas existem versões alternativas
+para diversos ambientes:</p>
+<ul>
+<li>OpenGL ES: voltado para sistemas embarcados, como smartphones e tablets;</li>
+<li>WebGL: voltado para ser executado em browsers.</li>
+</ul>
+<p>Existem diferenças entre essas versões, mas são pequenas o suficiente para
+você se sentir confortável e aprender uma outra versão rapidamente, dado que
+já conhece bem uma.</p>
+<h2 id="gostei-como-sera-a-serie">Gostei. Como será a série?</h2>
+<p>Assumirei que quem lê esta série é proficiente em alguma linguagem de
+programação imperativa. Embora eu use Rust para meus projetos de computação
+gráfica hoje em dia, todos os exemplos aqui serão escritos em C. Afinal,
+provavelmente boa parte das pessoas que lerão nem conhecem Rust (se você não
+conhece, <a href="https://doc.rust-lang.org/book/">LEIA O LIVRO</a>) :(</p>
+<p>Eu tentarei escrever um artigo por semana. Por enquanto, a ementa é a
+seguinte:</p>
+<ul>
+<li><a href="http://127.0.0.1:1111/blog/20200724-opengl-00-intro/">Parte 0: Introdução</a></li>
+<li>Parte 1: Setup e Criando uma Janela (e brincando com ela)</li>
+<li>Parte 2: A Pipeline e Buffers</li>
+<li>Parte 3: Shaders e seu Primeiro Triângulo</li>
+<li>Parte 4: Matrizes e Transformações, e seu Primeiro Cubo</li>
+<li>Parte 5: Texturas</li>
+<li>Parte 6: Framebuffers e Offscreen Rendering</li>
+<li>Parte 7: Algumas técnicas legais</li>
+</ul>
+<p>Todo esse conteúdo está sujeito a alterações, enquanto eu planejo melhor o
+minicurso. Espero que gostem!</p>
+<p>Até a próxima parte!</p>
+
+</div>
+
+
+        <div class="content narrow center">
+            made by Edu with love, Zola and Rust 🦀
+        </div>
+    <script src="/livereload.js?port=1024&amp;mindelay=10"></script></body>
+</html>

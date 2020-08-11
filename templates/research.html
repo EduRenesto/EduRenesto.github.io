@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block extra_style %}@import url("/research.css") screen, projection;{% endblock extra_style %}
+
+{% block title %}edu::research{% endblock title %}
+
+{% block content %}
+    {% for post in paginator.pages | reverse %}
+        <div class="content narrow container post-header attention-1">
+            <div class="post-title"><a href="{{ post.extra.file }}">{{ post.title }}</a></div>
+            <div class="post-extra">
+                {{ post.date }}
+            </div>
+        </div>
+        <div class="content narrow container">
+            {{ post.content | safe }}
+        </div>
+    {% endfor %}
+
+{% endblock content %}

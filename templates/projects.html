@@ -8,7 +8,13 @@
     <div class="content narrow flex-hor">
         {% for post in paginator.pages | reverse %}
         <div class="proj-card">
-            <img src="{{ post.extra.image }}"/>
+            {% if post.extra.image == "" %}
+                <div class="no-image">
+                    no picture :(
+                </div>
+            {% else %}
+                <img src="{{ post.extra.image }}"/>
+            {% endif %}
             <div class="proj-desc">
                 <a href="{{ post.extra.link }}">{{ post.title }}</a> <br/>
                 {{ post.description }}
